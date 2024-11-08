@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1 - What is WPI Lib? - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>Lesson 1 - What is WPILib?</h2>
+            <hr>
+            <h3>What is WPILib?</h3>
+            <p>WPI Lib is the most commonly used programming library for FRC programming. There are 3 languages you can program in using WPILib: Java, C++, and Python. In these lessons, we will be using the Java language, which most of the FRC teams use.</p>
+            <p>If you do not know basic Java syntax and concepts, we recommend that you learn those before beginning to learn WPILib. We may add more lessons which focus mainly on learning the basic concepts of Java later on. For now, we recommend that you at least learn up to the level of object-oriented programming with Java.</p>
+            <hr>
+            <h4>Part 1 - Installing WPILib</h4>
+            <p>To install WPILib, you will need to get it from the documentation:</p>
+            <a href="https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html">Install From Documentation</a>
+            <p>You can either install it from here..</p>
+            <img src="images/L1/WPI_Lib_Install_From_Docs.png" alt="WPILib Install From Docs">
+            <p>Or if you do not have a machine with Windows, scroll down a bit and install it from one of these: </p>
+            <img src="images/L1/WPI_Lib_Install_From_Docs2.png" alt="WPILib Install From Docs Alternative">
+            <p>The rest of the instructions for completing the installation are outlined on the WPILib Documentation (link above to the installation page). Make sure you install VS Code when prompted!</p><br>
+            <p>Be sure to also install normal Visual Studio Code onto your computer, as it's useful to learn the concepts in Lesson 2.</p>
+            <hr>
+            <h4>Part 2 - What Exactly Is WPILib?</h4>
+            <p>WPILib is a library which contains specialized Java functions and syntax for FRC Robots.</p>
+            <p>It is based off what we call "Command Based Programming," which as the name suggests is surrounding commands.</p>
+            <p>Not only does it have commands for the robot, there are lots of handy built-in functions which can automate your tasks for you.</p>
+            <hr>
+            <h4>Part 3 - How Do We Connect Software to Hardware?</h4>
+            <p>FIRST has many tools which allow users to easily connect robot hardware to software quite easily.</p>
+            <p>Normally during FRC testing and competition, a team will have a "Driver Station" laptop which will control the code for the robot.</p>
+            <p>The laptop will be connected to a Robot Radio via a wifi connection. The radio looks like this: </p>
+            <img src="images/L1/FRC_Radio_Example_L1.png" width="300" height="300" alt="FRC Radio Example">
+            <p>In order to send the code to the robot through the radio, teams use an app called DriverStation (Windows only!): </p>
+            <img src="images/L1/Driver_Station_Example_L1.png" alt="Driver Station Example">
+            <p>Here is a quick overview of what the most important parts of the Driver Station are:</p>
+            <table>
+                <tr>
+                    <td><img src="images/L1/Enable_Disable_Button_Example_L1.png" alt="Enable/Disable Button"></td>
+                    <td><p>This is the self-explanatory enable/disable button which allows the robot to be run.</p>
+                        <p>This means that the robot can be controlled by the connected controller (which we will get into later) and is "dangerous" to stand around.</p>
+                        <p>Make sure to notify those around you that you are enabling the robot before you press the button, to make sure that no one gets hurt around the moving robot.</p>
+                        <p>If you need to disable the robot quickly, you can press the ENTER key on your keyboard.</p>
+                        <p>Pressing SPACE will E-stop (emergency stop) the robot in case of a serious emergency where all movement needs to be stopped. This functions the exact same as disabling but SPACE may be easier to press.</p>
+                        <p>In order to re-enable the robot after it is E-stopped, you must reboot the RoboRIO (which is essentially the brain of the robot) by turning the robot off and on again.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/L1/Uptime_Timer_Example_L1.png" alt="Uptime Timer"></td>
+                    <td><p>This timer represents the time since the last time the robot was enabled.</p></td>
+                </tr>
+                <tr>
+                    <td><img src="images/L1/Team_Station_Example_L1.png" alt="Team Station"></td>
+                    <td>
+                        <p>This dropdown can change what alliance and what station the robot registers as.</p>
+                        <p>In an FRC game, there are 2 alliances, red and blue, and in each alliance, there are 3 robots.</p>
+                        <p>Each robot is assigned a station number for their team, as in red 1, red 2, etc.</p>
+                        <p>Because FRC fields are not directly mirrored from the red/blue side, you can change the registered robot team outside of competition for testing code.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/L1/Team_Number_Example_L1.png" alt="Team Number"></td>
+                    <td>
+                        <p>This is also the self-explanatory team number which can be configured by going into the settings icon on the left.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/L1/Battery_Percentage_Example_L1.png" alt="Battery Percentage"></td>
+                    <td>
+                        <p>This shows the battery percentage of the robot that is connected to the laptop (in volts).</p>
+                        <p>It is recommended that the battery of the robot be above 12 volts for the robot to function like it would at a competition.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/L1/Communications_And_Other_Stuff_Example.png" alt="Communications and Other"></td>
+                    <td>
+                        <p>This shows the status of the components which the robot requires to run.</p>
+                        <p>Communications is whether the laptop is connected to the robot network through the radio (see above).</p>
+                        <p>Robot Code shows whether the code is deployed onto the robot through the WPILib commands (which we will cover in the next lesson).</p>
+                        <p>Joysticks show whether the controller used for the robot is connected to the Driver Station laptop - normally done through a USB wire.</p>
+                        <p>Underneath these status icons is a general status message, such as "Autonomous Enabled" or in this case, "No Robot Code"</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/L1/Console_Example_L1.png" alt="Console"></td>
+                    <td>
+                        <p>This is the console where all errors, warnings, and other miscellaneous information will be displayed during robot function.</p>
+                        <p>This includes console output from the robot and other Driver Station warnings and errors, such as in the example.</p>
+                    </td>
+                </tr>
+            </table>
+            <p>If you want a more in-depth view on the best practices for the driver station laptop, view this link:</p>
+            <a href="https://docs.wpilib.org/en/stable/docs/software/driverstation/driver-station-best-practices.html">Best Driver Station Practices</a>
+            <p>Additionally, there are other ways to connect software to hardware, as in using a LimeLight which we will cover later into the lessons.</p>
+            <hr>
+            <h4>Part 4 - Lesson Summary and Conclusion</h4>
+            <p>You may be asking why we have not started any coding yet. This is because before you begin programming with WPILib, you need to understand how it is used with the robot itself.</p>
+            <p>In order to be an effective programmer for your team, you must be able to test and work with your code effectively so that during competition, there are minimal bugs or errors.</p>
+            <p>With this basic knowledge, you'll be able to participate and program much better.</p>
+            <p> </p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3 - Commands and Subsystems - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+
+    <div class="container">
+                <div class = "code">
+                    <h2>Lesson 3 - Commands and Subsystems</h2>
+                    <hr>
+                    <h3>Part 1 - What are Subsystems?</h3>
+                    <b>Subsystems are abstractions (aka a software representation) of a physical part or parts of the robot. </b>
+                    <p>For example, there could be a Motor Subsystem that controls a motor, 
+                            or a shooting subsystem which uses multiple motors to shoot a object.</p>
+                    <h4>Subsystems in action</h4>
+                    <p>Subsystems are represented in java as classes who extend the <code>SubsystemBase</code> abstract class</p>
+                    <p>The only inherited method we will talk about is the <code>periodic()</code> method.</p>
+                    <p>The <code>periodic()</code> method runs every 20 ms in the background. The typical use for <code>periodic()</code> is code you want to run in the background once in a while. such as spinning the motor, checking if it's done, etc..</p>
+                    <p>Some examples of what we use <code>periodic()</code> for include:</p>
+                    <ul>
+                        <li>Spinning a motor.</li><br>
+                        <li>Checking if a task is complete</li><br>
+                    </ul>
+                    <p>Other methods are added as needed to fully encapsualte the component in question.</p>
+                    <p>For example, a Motor Subsystem could have a <code>run()</code> method to start the motor, and a <code>stop()</code> method to stop the motor.</p>
+                    <img src = "images/Lesson3SubsystemExample.png">
+                    <hr>
+                    <h3>Part 2 - What are Commands?</h3>
+                    <b>A Command uses 1 or more subsystems to complete an specific action, such as picking up an object, scanning the feild, scoring a note, etc.</b>
+                    <p>They are managed by the <b>CommandScheduler</b>, which schedules all commands in the queue.<br> 
+                        The CommandScheduler also ensures that overlapping Commands (those who use the same Subsystems) dont run at the same time.</p>
+                    <p>For more information about commands running in parallel, <a href="lesson4.html" style="color: darkmagenta">visit lesson 4.</a></p>
+                    <p>These commands are represented in java as classes which extends the <code>Command</code> abstract class, <br>
+                        and 38 inherited methods, but only 5 matter for creating commands for now: <code>initialize()</code>, <code>execute()</code>, <code>end()</code>, <code>isFinished()</code>, and <code>addRequirements()</code> </p>
+                    <table>
+                        <tr>
+                            <td><h4>initialize():</h4></td>
+                            <td><p><code>initialize()</code> runs when the command is initially executed by the command scheduler and only runs once.<br>
+                                This method is used to prepare the robot to perform an action.</p></td>
+                        </tr>
+                        <tr>
+                            <td><h4>execute():</h4></td>
+                            <td><p><code>execute()</code> is run every command scheduler run (40 MS) during the command's lifetime. <br>
+                                You can use this to continually run code for the duration of the command. </p></td>
+                        </tr>
+                        <tr>
+                            <td><h4>isFinished():</h4></td>
+                            <td><p><code>isFinished()</code> is executed at the end of every command scheduler run (40 MS).<br>
+                                It returns a boolean value which if true, ends the program without interruptions.</p>
+                                <p>You use this method to tell the robot when to end your command.</p></td>
+                        </tr>
+                        <tr>
+                            <td><h4>end(boolean interrupted):</h4></td>
+                            <td><p><code>end(boolean interrupted)</code> is called when the command ends.</p>
+                                <p>It takes a boolean indicating if the command was interrupted or not, i.e.
+                                <br> takes the value of false if <code>isFinished()</code> is true (meaning the command was NOT forcefully terminated), and false otherwise </p></td>
+                        </tr>
+                        <tr>
+                            <td><h4>addRequirements(Subsystem s):</h4></td>
+                            <td><p><code>addRequirements(Subsystem s)</code> you do not override this inherited method</p>
+                                <p>Instead, this method is used to register the subsystems that a command uses to the CommandScheduler</p>
+                                <p>This prevents the parrallel execution two different commands that use overlapping subsystems.</p></td>
+                        </tr>
+                    </table>
+                    <p>Below is an example command that uses our previously defined <code>Motor</code> Subsystem to run a motor for 1 second.</p>
+                    <img src = "images/Lesson3CommandExample.png">
+                    <hr>
+                </div>
+        </div>
+            
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

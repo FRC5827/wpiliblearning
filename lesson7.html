@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 7 - Automonous w/ Choreo - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+    <div class="container">
+        <h1>This lesson is still work in progress - there will be more added to it soon</h1>
+        <h2>Lesson 7 - Autonomous Code w/ Choreo</h2>
+        <hr>
+        <!-- <b>The current lesson is designed for the 2024 version of the app. While it's still valuable, we're working on a new version that will incorporate the latest features and improvements available in the 2025 beta version.</b> -->
+        <div class = "autonomous intro">
+            <h3>Introduction to Autonomous</h3>
+            <p>An FRC match is divided into 2 segments: a 15 second autonomous period and a 2 minute 15 second teleoperated period</p>
+            <p>In the autonomous (auton) period, the robot will perform a routine without any driver input</p>
+            <p>For the 15 second autonomous period, the code team, in collabration with the strategy team, is responsible for making autonomous routines with the help of software</p>
+            <p>The goal of this lesson is for you to be able to make any auton routine that you could possibly make. Let's get started!</p>
+            <hr>
+        </div>
+        <div class = "physics">
+            <h3>Basic Physics Knowledge</h3>
+            <p>In order to use Choreo, you will need some basic physics knowledge. If you took physics, skip this section</p>
+            <table>
+                <tr>
+                    <td>Mass</td>
+                    <td>How much matter is in something</td>
+                </tr>
+                <tr>
+                    <td>Velocity</td>
+                    <td>The change in the position of something</td>
+                </tr>
+                <tr>
+                    <td>Angular Velocity</td>
+                    <td>The change in the angle of something</td>
+                </tr>
+                <tr>
+                    <td>Acceleration</td>
+                    <td>How much the velocity changes over a period of time</td>
+                </tr>
+                <tr>
+                    <td>Moment of Inertia</td>
+                    <td>How hard it is to spin something</td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+        <div class = "introduction">
+            <h3>Choreo Set-up</h3>
+            <p>Choreo is a FRC path-planning application that is different from most in that instead of drawing the autonomous, you feed the the characterstics of the robot and the desired constraints of the path and it'll give you the mathmatically best path.</p>
+            <h2>Installation Process for WPILib 2024</h2>
+            <p>Click <a href = "https://github.com/SleipnirGroup/Choreo/releases/tag/v2025.0.0-beta-3">here</a> and scroll down to install the appropriate version of Choreo for your OS. Please install this version if you're working with WPILib 2024.</p>
+            <p>You will see an app named "Choreo" installed.</p>
+            <h2>Installation Process for WPILib 2025</h2>
+            <p>Choreo is included with the WPILib 2025 installer. After installation, open the "2025 WPILib Tools" folder on your desktop, then open "Choreo 2025"</p><br>
+            <p>Note that if you have both a standalone installation and a bundled installation of Choreo, the standalone will be called "Choreo" and the bundled will be called "Choreo 2025". They are separate copies of Choreo. Don't get them mixed up.</p>
+            <!-- <p>On WPILib 2025, Choreo should be installed with WPILib, so you don't need to really worry about a separate download</p><br>
+            <p>If you need or want a standalone installation, click <a href = "https://github.com/SleipnirGroup/Choreo/releases">here</a></p> -->
+            <!-- <p>To install Choreo, click <a href = "https://github.com/SleipnirGroup/Choreo/releases">here</a></p><br> -->
+            <p>After that, go to the hamburger menu, then hit "Document Settings"</p><br>
+            <img src = images\L7\Hamburger.png>
+            <p>Enter the number and the units you want to use. </p><br>
+            <p>Here are the defintions, straight from the documentation, that you need to worry about.<b>You do not need to memorize this. It's in the documentation and in the table below</b></p>
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>What it is</th>
+                </tr>
+                <tr>
+                    <td>Mass(kg or lb)</td>
+                    <td>The mass of the robot with battery and bumpers</td>
+                </tr>
+                <tr>
+                    <td>Moment of inertia(kg * m^2 or lb * ft^2)</td>
+                    <td>The robot's moment of inertia around its vertical axis. Higher moment of inertia means it is more difficult to rotate the <object data="" type=""></object> <a href = "https://sleipnirgroup.github.io/Choreo/usage/estimating-moi/">Here is a link on how to find it</a></td>
+                </tr>
+                <tr>
+                    <td>Bumper Width(m or in)</td>
+                    <td>The width of the robot with bumper on</td>
+                </tr>
+                <tr>
+                    <td>Bumper Left (m or in)</td>
+                    <td>The length of the robot with bumper on on the left side of the robot.</td>
+                </tr>
+                <tr>
+                    <td>Bumper Right(m or in)</td>
+                    <td>The length of the robot with bumper on on the right side of the robot.</td>
+                </tr>
+                <tr>
+                    <td>Wheelbase(m or in)</td>
+                    <td>Front-back distance between wheel-centers</td>
+                </tr>
+                <tr>
+                    <td>Trackwidth(m or in)</td>
+                    <td>Left-right distance between wheel centers</td>
+                </tr>
+                <tr>
+                    <td>Wheel radius(m or in)</td>
+                    <td>This is very hard: it's the radius of the wheels</td>
+                </tr>
+                <tr>
+                    <td>Gearing(unitless)</td>
+                    <td>The ratio of drive motor rotations to wheel rotations</td>
+                </tr>
+            </table>
+            <p>When you open Choreo, you'll see this screen</p><br>
+            <img src = "images\L7\Clean Choreo.png" width = 75%>
+            <p>Don't worry about the motor max speed and motor max torque. Use the motor calculator, where you input the drive motors and current limit and those two numbers should automatically be calculated.</p><br>
+            <p>You now need to create the .chor file for the project. In the build season, it'll be already created for you.</p><br>
+            <p>Go to the hamburger menu, hit "Save File"</p><br>
+            <img src = images\L7\HamburgerChorFile.png>
+            <p>Save the .chor file where in deploy/choreo folder. After the creation, you will see a Choreo.chor file and a New Path.traj file.</p><br>
+            <!-- <p>Save the .chor file IN THE ROOT FOLDER of the project. Not src, build, gradle, vendordeps, deploy, pathplanner, choreo, assets, whatever folder name known to mankind other than the root folder.</p><br> -->
+            <p>Name the .chor file Choreo.chor. This is the standard convention.</p><br>
+            <p>The .chor file is where the project configuration is stored. The .traj files is where information about the actual paths are stored.</p><br>
+            <!-- <p>After the successful creation, you should see something like this:</p><br>
+            <img src = images\L7\ChoreoProjectDetection.png> -->
+            <p>When you reopen Choreo, to open the .chor file associated with the project, click on the hamburger menu, then click on "Open File". Usually, it should open automatically</p><br>
+            <img src = images\L7\ChoreoOpenFile.png>
+            <p>And here is an example of a complete Choreo project</p><br>
+            <img src = "images\L7\Complete Choreo.png" width = 75%>
+            <hr>
+        </div>
+        <div class = "expressions and variables">
+            <p>You can also input mathmatical expressions into Choreo instead of numbers. </p><br>
+            <p>You can do this in whatever units it wants: Choreo will do the dimensional analysis for you.</p><br>
+            <p>Choreo will save the expression you inputted.</p><br>
+            <p>You can also define variables in Choreo.</p><br>
+            <p>Variables are either single numbers, or aggregate variables. Aggregate variables allow you to store the x, y, and heading of a pose in one variable.</p><br>
+        </div>
+        <div class = "waypoints">
+            <h3>Waypoints</h3>
+            <table>
+                <tr>
+                    <th>Waypoint type</th>
+                    <th>Information</th>
+                </tr>
+                <tr>
+                    <td>Pose Waypoint</td>
+                    <td>A waypoint that includes a translation and rotation. It requests the x, y, and rotation in radians</td>
+                </tr>
+                <tr>
+                    <td>Translation waypoint</td>
+                    <td>A waypoint that only has a translation.</td>
+                </tr>
+                <tr>
+                    <td>Empty waypoint</td>
+                    <td>A waypoint that has neither has a translation nor a rotation. It's there if you want an event to happen somewhere in the general vicinity of the empty waypoint</td>
+                </tr>
+                <tr>
+                    <td>Stop point</td>
+                    <td>A point where the robot will stop. If the "split .traj file at stop points" setting is enabled, Choreo will generate a separate .traj file for the trajectory between each stop point. <b>Note this feature is no longer tied to stop points.</b></td>
+                </tr>
+            </table>
+            <p>Each trajectory has <i>waypoints</i> which are numbered from 1 onwards. The robot <b>must</b> pass through any pose and translation waypoints you declare.</p><br>
+            <p>You might be wondering what the point of empty waypoints are. It's there in case you want to put a constraint somewhere in the ballpark of that waypoint, as that will make it a numbered waypoint which you may apply a constraint to.(Don't worry, we'll talk about constraints later)</p><br>
+            <hr>
+        </div>
+        <div class = "constraints">
+            <h3>Constraints</h3>
+            <p>A constraint is a restriction that the trajectory must respect. </p><br>
+            <p>There are many types of constraints</p><br>
+            <table>
+                <tr>
+                    <th>Constraint</th>
+                    <th>What it does</th>
+                    <th>Scope</th>
+                </tr>
+                <tr>
+                    <td>Waypoint Velocity Direction</td>
+                    <td>Restricts the angle, in radians, that the robot travels</td>
+                    <td>Waypoint Scope</td>
+                </tr>
+                <tr>
+                    <td>Waypoint Zero Velocity</td>
+                    <td>Restricts the waypoint to stop at the point</td>
+                    <td>Waypoint Scope</td>
+                </tr>
+                <tr>
+                    <td>Max Velocity</td>
+                    <td>Restricts the velocity in the waypoint or segment</td>
+                    <td>Waypoint and Segment Scope</td>
+                </tr>
+                <tr>
+                    <td>Max Angular Velocity</td>
+                    <td>Restricts the velocity in the waypoint or segment</td>
+                    <td>Waypoint and Segment Scope</td>
+                </tr>
+                <tr>
+                    <td>Keep In Zones</td>
+                    <td>Keep the robot in the keep-in zone. Keep-in zones are either circles or rectangles.</td>
+                    <td>Segment Scope</td>
+                </tr>
+                <tr>
+                    <td>Keep Out Zones</td>
+                    <td>Keeps the robot out of the keep-out zone. Keep-out zones are circles</td>
+                    <td>Segment Scope</td>
+                </tr>
+                <!-- <tr>
+                    <td>Straight Line</td>
+                    <td>Tells the solver to solve in straight line</td> 
+                    <td>Segment Scope</td>
+                </tr> -->
+            </table>
+            <br>
+            <br>
+            <hr>
+        </div>
+        <div class = "generating">
+            <h3>Generating Paths</h3>
+            <p>After you finished the path, you hit the G key (or Ctrl + G) on your keyboard. This is needed to use your path</p>
+        </div>
+        <!-- <div class = "labels">
+            <p>Here is a screenshot with labels on what each part of the UI means</p><br>
+            <img src = "images\L7\Complete Choreo - Labeled.png" width = 75%>
+        </div> -->
+        <!-- <div class = "ChoreoLib">
+            <p>We now have made the paths. The paths are the base of an auto. However, we'll use code to assemble a full auton.</p><br>
+            <<h3>It's time to program!</h3>
+            <p>You realized that we haven't programmed at all. Now is the time!</p><br> -->
+            <!-- <p>The ChoreoLib API is changing next year, so I'll have to rewrite this section. I'll write it later.</p> -->
+            <!-- <p>Luckily(or unluckily, depending on the POV), the amount of programming we have to do is very simple and little. In fact, the entire ChoreoLib library has only 3 classes and 1 interface, and each class only has a few methods we need to worry about! (and we don't need to even worry about the interface)</p><br>
+            <p>Here are the methods in the Choreo class that we care about:</p><br>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>static Command choreoSwerveCommand(ChoreoTrajectory trajectory, Supplier&lt;Pose2d&gt; poseSupplier, PIDController xController, PIDController yController, PIDController rController, Consumer&lt;ChassisSpeeds&gt; outputChassisSpeeds, BooleanSupplier mirrorTrajectory, Subsystem... requirements)</td>
+                    <td>Creates a command to follow the path. Note: if there is 1 method that you need to learn from this, it's this</td>
+                </tr>
+                <tr>
+                    <td>static ChoreoTrajectory getTrajectory(String trajName)</td>
+                    <td>Loads a trajectory from a .traj file in the directory. Argument accepted exclusive of .traj file extension</td>
+                </tr>
+                <tr>
+                    <td>static ArrayList&lt;ChoreoTrajectory&gt; getTrajectoryGroup(String trajName)</td>
+                    <td>Loads the split part 1 Choreo trajectory split into many .traj files. Argument accepted exclusive of .traj file extension</td>
+                </tr>
+            </table> -->
+            <!-- <p>Here's a link to the ChoreoLib library for information about the entire ChoreoLib library</p> -->
+            <!-- <p>Here are the methods in the ChoreoTrajectory class(this class isn't as important as the Choreo class)</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>ChoreoTrajectory flipped()</td>
+                    <td>Returns the trajectory, flipped</td>
+                </tr>
+                <tr>
+                    <td>Pose2d getFinalPose()</td>
+                    <td>Returns the final pose of the trajectory, non-mirrored</td>
+                </tr>
+                <tr>
+                    <td>ChoreoTrajectoryState getFinalState()</td>
+                    <td>Returns the last ChoreoTrajectoryState of the robot</td>
+                </tr>
+                <tr>
+                    <td>Pose2d getFlippedFinalPose()</td>
+                    <td>Returns the final pose of the trajectory, mirrored</td>
+                </tr>
+                <tr>
+                    <td>Pose2d getFlippedInitialPose()</td>
+                    <td>Returns the initial pose of the trajectory, mirrored</td>
+                </tr>
+                <tr>
+                    <td>Pose2d getInitialPose()</td>
+                    <td>Returns the initial pose of the trajectory, non-mirrored</td>
+                </tr>
+                <tr>
+                    <td>ChoreoTrajectoryState getInitialState()</td>
+                    <td>Returns the initial ChoreoTrajectoryState of the robot</td>
+                </tr>
+                <tr>
+                    <td>Pose2d[] getPoses()</td>
+                    <td>Returns an array of all the poses in the path</td>
+                </tr>
+                <tr>
+                    <td>List&lt;ChoreoTrajectoryState&gt; getSamples()</td>
+                    <td>Returns the list of ChoreoTrajectoryStates</td>
+                </tr>
+                <tr>
+                    <td>ChoreoTrajectoryState sample(double timestamp)</td>
+                    <td>Returns the ChoreoTrajectoryState corresponding to the timestamp</td>
+                </tr>
+                <tr>
+                    <td>ChoreoTrajectoryState sample(double timestamp, boolean mirrorForRedAlliance)</td>
+                    <td>Returns the ChoreoTrajectoryState corresponding to the timestamp, using the boolean argument to decide whether to mirror</td>
+                </tr>
+            </table>
+            <p>And here are the fields in the ChoreoTrajectoryState class</p>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>final double angularVelocity</td>
+                    <td>The angular velocity in radians per second</td>
+                </tr>
+                <tr>
+                    <td>final double heading</td>
+                    <td>The heading of the robot in radians, with 0 in the +x direction</td>
+                </tr>
+                <tr>
+                    <td>final double timestamp</td>
+                    <td>The timestamp of the state</td>
+                </tr>
+                <tr>
+                    <td>final double velocityX</td>
+                    <td>The velocity of the robot, in the x direction, in m/s</td>
+                </tr>
+                <tr>
+                    <td>final double velocityY</td>
+                    <td>The velocity of the robot, in the y direction, in m/s</td>
+                </tr>
+                <tr>
+                    <td>final double x</td>
+                    <td>The x position of the robot in meters</td>
+                </tr>
+                <tr>
+                    <td>final double y</td>
+                    <td>The y position of the robot in meters</td>
+                </tr>
+            </table>
+            <p>And here are the methods in ChoreoTrajectoryState</p><br>
+            <table>
+                <tr>
+                    <td>ChoreoTrajectoryState flipped()</td>
+                    <td>Returns the ChoreoTrajectoryState, flipped</td>
+                </tr>
+                <tr>
+                    <td>ChassisSpeeds getChassisSpeeds()</td>
+                    <td>Returns the field-relative ChassisSpeeds of the state</td>
+                </tr>
+                <tr>
+                    <td>Pose2d getPose()</td>
+                    <td>Returns the pose at this state</td>
+                </tr>
+                <tr>
+                    <td>ChoreoTrajectoryState interpolate(ChoreoTrajectoryState endValue, double t)</td>
+                    <td>Interpolates between this tate and provided state, as stated by the Interpoltable interface</td>
+                </tr>
+            </table> -->
+            <!-- <p>Here is a code example of creating the command called "Go Straight" using last year's robot code.</p><br>
+            <code>Command command = Choreo.choreoSwerveCommand(Choreo.getTrajectory("Go Straight"), m_swerveDrive::getPose, xController, yController, rController, m_swerveDrive::setChassisSpeeds, AutoConstants::shouldFlipPath, m_swerveDrive);</code> -->
+        </div>
+        <!-- <div class = "obstacles">
+            <h3>Bonus: Obstacles(Note: this section is under construction)</h3>
+            <p>Note: Obstacles are currently in beta. To use obstacles, you have to go to "betas", and click "Show Obstacles in UI" </p><br>
+            <p>Obstacles are simple. You hit the x circle, you declare the x, y of the center and the radius of the obstacle. The robot will not pass through the obstacle.</p><br>
+        </div> -->
+        <br>
+        <br>
+    </div>
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

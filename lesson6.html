@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6 - Swerve Drive Integration - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+
+    <div class="container">
+        <h1>This lesson is still work in progress - more will be added to it soon</h1>
+        <h2>Lesson 6 - Swerve Drive Integration</h2>
+        <hr>
+        <h3>Intro to Swerve Drive</h3>
+        <p>Swerve drive is a type of drive train that utilises 8 motors and an AHRS (Attitude and Heading Reference System) to allow the robot to freely move in 2 dimensional space</p>
+        <p>Each wheel consists of two motors one for rotation and the other for drive</p>
+        <p>Achieving the harmony between all 8 motors required for swerve drive to work properly is no easy task</p>
+        <p>Thankfully, FIRST does most of the heavy lifting for us and provides access to helper classes that take care of the tricky parts of swerve like odometry and kinematics</p>
+        <p>Most of the actual work we do on swerve drive consists of tuning PID loops which you can go to (insert pid loop lesson here) to learn about and updating it when new firmware is released</p>
+        <p>This lesson is meant to acclamate you to the software of Swerve Drive in the unlikely case you end up working on it</p>
+        <hr>
+        <h3>Basics of swerve drive</h3>
+        <p>Each swerve drive module is stored inside the array titled m_swerveModules</p>
+        <p>When a TeleopSwerve Command is submitted the inputs are first proccesed depending on the operator mode</p>
+        <p>Next, a chassis speed object is created which wraps the inputs in a format that the Swerve Drive Kinematics class can read</p>
+        <p>This chassis object is then sent to the set chassis speed method which sends the chassis speed object to a swerve kinematics instance to be turned into a swerve state</p>
+        <p>These states go through one last check to ensure they do not go over the max speed the robot can handle before finally being applied to each swerve module</p>
+        <hr>
+        <h3>Field relative vs Field absolute</h3>
+        <p>Swerve Drive is cool and all but it's main usefulness comes from it's ability to perform field absolute control</p>
+        <p>Field absolute means that no matter the robots pose it will always move in the same direction absolute to the operator</p>
+        <p>This controll style allows for the agility and ease of use that swerve drive is known for and is the primary reason for choosing it over another drive train style</p>
+        <p>To acheive this effect the Swerve Drive class utilises the swerve drive odometry class and AHRS to interpret translation2D objects fed in by the Xbox Controller</p>
+        <p>It then compares this against the field absolute speed of the robot to convert it into a chassis speed before following the same pipeline stated in the previous section</p>
+    </div>
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+<script src="app.js"></script>
+</body>
+</html>

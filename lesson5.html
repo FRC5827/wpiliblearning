@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5 - PID Loops Basic - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h2>Lesson 5 - PID Loop Basics</h2>
+            <hr>
+            <h2>What is a PID Loop?</h2>
+            <p>PID loops are a type of control loop that utilise odometry systems to correct for input error.</p>
+            <p>These loops allow for precise controll of motors and are a staple of FRC coding.</p>
+            <p>To perform this task PID loops look at the current position, expected position, and past position of the motor to create a new input value.</p>
+            <p>PID loops should be placed inside the subsystem - <b>NOT THE COMMAND</b>.</p>
+            <p>This is because they modify the behavior of the subsystem, and this ensures that if another command is made it will have the same PID loop</p>
+            <p>Some real use case of PID loops include: </p>
+            <ul>
+                <li>Swerve Drive: Allows all the motors to be in sync</li>
+                <li>Balancing: For example, in a climber, it ensures that the robot is never tilted too far off its axis</li>
+                <li>Shooting: In our 2024 robot, we hve a main shooting motor and a flywheel which charges up the shot. PID allow to control the flywheel to ensure that the same motor speed is reached by both.</li>
+            </ul>
+            <hr>
+            <h2>PID Loop Setup/Declaration</h2>
+            <p>PID loops are declared by creating a new PIDcontroller object and declaring the weight that each part (Proportional, Derivative, Integral) should have on the calculated output.</p>
+            <table>
+                <tr>
+                    <td>P (Proportional)</td>
+                    <td>The term that generate motor speed to move the motor in the correct direction with the correct speed</td>
+                    <td>Tuned with constant Kp</td>
+                </tr>
+                <tr>
+                    <td>I (Integral)</td>
+                    <td>The sum of all errors over the code run time, will keep increasing until the set point of error is reached.</td>
+                    <td>Tuned with constant Ki</td>
+                </tr>
+                <tr>
+                    <td>D (Derivative)</td>
+                    <td>Rate of change of error, which is used to slow down the motor if it's spinning too fast by taking [currentErrorValue - previousErrorValue]</td>
+                    <td>Tuned with constant Kd</td>
+                </tr>
+            </table>
+            <p>As a result, the only field that should be non zero is the first one where you input a value between 0 and 1</p>
+            <p>For a more gradual PID effect use lower numbers as this will mean that offsets will cause less change in the loop's output value</p>
+            <p>The actual code definition is (please note that the input values are not ones you would actually use):</p>
+            <code>PIDController m_xPositionalController = new PIDController(0.11, 0.23, 0.27);</code>
+            <p>These values are almost never final and will be tested to find ones that work so if you are just making something put in a value between 0.15 - 0.3</p>
+            <hr>
+            <h2>setTolerance()</h2>
+            <p>After initializing a pid controller it is important to set a tolerance for it so that it doesn't constantly spin the motor if it off by a neglible ammount and keeps over correcting</p>
+            <p>To do this, call the <code>.setTolerance()</code> method with a value between 0 and 1. Again, initial value doesn't really matter as it will all be tweaked later.</p>
+            <hr>
+            <h2>Using PID Loops</h2>
+            <p>Now that the setup is all done the PID loop can now be used to get useful informaton.</p>
+            <p>To begin a control loop, set the desired position of the PID controller using the <code>setPosition()</code> method.</p>
+            <p>This method will set the position of the motor that you want it to spin to</p>
+            <p>This value will be checked against the position you give the controller and put though a calculation with the weights perviously described to output a new motor speed</p>
+            <p>To actually get this value, call the <code>calculate()</code> method with the current position of the motor as the parameter</p>
+            <p>Take this value and use it to modify the motor output - repeat the process. By doing so, you have created a PID loop.</p>
+            <hr>
+            <h2>PID Examples</h2>
+            <p>A good example of PID loops is the AlignToTargetCommand here:</p>
+            <a href = "https://github.com/FRC5827/2024Public/blob/main/src/main/java/frc/robot/commands/AlignToTargetCommand.java">A Good PID Example</a>
+            <p>Note that it does use a ProfiledPIDController, but the general idea is the same.</p>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

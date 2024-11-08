@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4 - Robot Container Basics - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+    <div class = "container">
+        <h2>Lesson 4 - Robot Container Basics</h2>
+        <hr>
+        <br>
+        <b>It will be helpful to view the RobotContainer class in our 2024 robot code <a href = "https://github.com/FRC5827/2024Public/blob/main/src/main/java/frc/robot/RobotContainer.java">here</a> as you read the lesson</b>
+        <hr>
+
+        <h3>Robot Container Basics</h3>
+        <p>The most important class in the entire robot project is the RobotContainer class. The RobotContainer class is where all the subsystems of the robot are declared and where all button are binded.</p>
+        <p>Now, that was a mouthful. Saying that in words you actually understand: The RobotContainer is responsible for coordinating the commands and subsystems together in a robot.</p>
+        <p>It also controls all the button bindings, so the commands work when you press a button on the robot controller.</p>
+        <p>You should open the 2024 robot code and open RobotContainer.java, and follow along wit the lesson</p>
+        <hr>
+
+        <h3>Instance Variables (Lines 62-77)</h3>
+        <img src = "images\L4\Instance Variables.png">
+        <table border="1">
+            <tr>
+                <td>CommandXboxController (Line 62)</td>
+                <td>This is the instance variable where the Xbox controller is declared. This allows for button presses to call certain commands.</td>
+            </tr>
+            <tr>
+                <td>Subsystems (Lines 69-73)</td>
+                <td>Subsystems are each declared as <code>private final</code> variables. A single subsystem should only be defined once.</td>
+            </tr>
+            <tr>
+                <td>SendableChooser (Lines 76-77)</td>
+                <td>SendableChoosers are declared as instance variables. This allows you to choose between different autons and allows for delays. You don't need to worry too much about them right now.</td>
+            </tr>
+        </table>
+        <hr>
+        <h3>Constructor (Lines 80-153)</h3>
+        <img src = "images\L4\Constructor.png">
+        <p>In the constructor, all the instance variables are instatinsated (creating an instance of that object) and their constructors called.</p>
+        <p>The if statements are there to check whether the subsystem should be instatinsated depending on the robot.</p>
+        <p>For example, if we are making a testing robot that does not have an Amp Arm, it doesn't try to instansiate an Amp Arm Subsystem.</p>
+        <hr>
+        <h3>AutoAlign and PathPlanner Methods (Lines 155-264)</h3>
+        <p>The methods which return a command are all used for AutoAlign, which we will get into in later lessons.</p>
+        <p>The <code>registerNamedCommands()</code> is for Pathplanner autonomous paths. This allows the robot to choose between which autonomous path to run based off certain criteria.</p>
+        <p>We will not be using Pathplanner this year, so you can ignore that method.</p>
+        <hr>
+        <h3>Configuring Button Bindings (Lines 266-320)</h3>
+        <img src = "images\L4\ConfigureButtonsBindings.png">
+        <p>This method is used to bind buttons on the xbox controller to robot commands.</p>
+        <p>To bind buttons, we use something called a <em>Trigger</em></p>
+        <p>A Trigger basically has methods that allow us to detect if something about the robot or Xbox controller has recently changed.</p>
+        <p>They are mainly used for binding buttons, but they do have many other uses.</p>
+        <p>The Trigger class has several methods:</p>
+        <table border="1">
+            <tr>
+                <td>TriggerMethod(Command)</td>
+                <td>Each trigger method takes in an instantiated command as a parameter.</td>
+            </tr>
+            <tr>
+                <td>onTrue()</td>
+                <td>Runs the command once the trigger becomes true and stops running the command when it becomes false.</td>
+            </tr>
+            <tr>
+                <td>whileTrue()</td>
+                <td>Runs the command as long as the trigger is true and stops running the command when it become false.</td>
+            </tr>
+            <tr>
+                <td>onFalse()</td>
+                <td>Runs the command once the trigger becomes false and stops running the command when it becomes true.</td>
+            </tr>
+            <tr>
+                <td>whileFalse()</td>
+                <td>Runs the command while the trigger is false and stop running the command when it becomes true</td>
+            </tr>
+            <tr>
+                <td>toggleOnTrue()</td>
+                <td>Begins running the command when the trigger turns true. Continues running it as usual when it turns false</td>
+            </tr>
+            <tr>
+                <td>toggleOnFalse()</td>
+                <td>Begins running the command when the trigger turns false. Continues running it as usual when it turns true</td>
+            </tr>
+        </table> <br>
+        <p>You will almost never declare your own Triggers. In the RobotContainer class for 2024, we declare our own custom Trigger once. Instead the CommandXboxController class provides Triggers with methods such as a(), b(), x()</p>
+        <p>This is so that you can bind commands to every single button on the xbox controller</p>
+        <hr>
+        <!-- Maybe we can add an image of the controller button map from 2024 -->
+        <b>Some Advanced Trigger Stuff(you do not need to know this, but it has some useful information)</b>
+        <p>You can chain triggers with and(), or(), and not(), just like a normal boolean, but with methods instead of the symbols. You cannot use the symbols with Triggers</p><br>
+        <p>It's important to understand that Triggers are <strong>not</strong> booleans, even though they're similar</p>
+        <p>You can also get the left trigger axis and right trigger axis as a double between 0 and 1 with getLeftTriggerAxis() and getRightTriggerAxis() if you're interested in how hard the driver is pressing the triggers. You also need to do this if you want a command to activate at a trigger axis of less than 0.5(that's how much it takes for the trigger to turn true)</p><br>
+        <p>Here's an example from last year's robot of using getLeftTriggerAxis()</p><br>
+        <img src = "images\L4\TriggerExample.png">
+        <hr>
+        <h3>getAutonomousCommand</h3>
+        <p>This methods returns the autonomous command to run using the information from the Sendable Chooser, using the getSelected() method. It uses a ProxyCommand, which I'll talk about later in the lesson.</p>
+        <b>Command Compositions</b><br>
+        <p>Now, for a slight change in pace, we're moving on to command compositions. A command composition is a command that consists of other commands.</p><br>
+        <p>This is useful in many cases. For instance, in last year's code, we created a command composition for shooting into the amp, one for shooting into the speaker, etc.</p><br>
+        <p>Why did we do that? We did it because both shooting into the amp and speaker used the shooter command, but the amp command also involved raising the arm, creeping forward, then shoot, then move back(Note it was more complicated, but that's the gist)</p><br>
+        <p>Now let's talk about different types of command compositions.</p><br>
+        <p>Each type of command composition is backed by a specific class and also one of the 38 inherited methods in the Command class(that's why Command has 38 inherited methods). Some of them also have a factory method.</p><br>
+        <p>We'll usually use the decorator methods.</p>
+        <b>RepeatCommand</b>
+        <p>In RepeatCommand, a command is restarted after isFinished() returns true</p><br>
+        <p>RepeatCommand is backed by the RepeatCommand class. You can also get a RepeatCommand from a normal Command by calling the repeatedly() method.</p>
+        <b>SequentialCommandGroup</b>
+        <p>You can have a command scheduled after another in a SequentialCommandGroup. It is backed by the SequentialCommandGroup class. It is backed by the sequence() factory in the Commands class(not Command) class...</p><br>
+        <p>For the decorator method, you can use andThen() to attach something <em>after</em> a command and beforeStarting() to attach a command <em>before</em> a command.</p><br>
+        <b>Parallel Commands</b>
+        <p>There are 3 types of parallel commands that are all slightly different.</p><br>
+        <p>A parallel command group runs all commands in parallel, and ends when all of the commands are finished. A parallel deadline group has a deadline command and the members and ends when the deadline ends and interrupts all the members. A parallel race group ends when one of the commands in the group ends</p>
+        <p>Let's talk about all 3 types in more detail.</p><br>
+        <p>A parallel command group is backed by the ParalllelCommandGroup class. To use a decorator, you use the alongWith() method.</p><br>
+        <p>A parallel race group is backed by the ParallelRaceGroup class. To use a decorator, use the raceWith() method</p><br>
+        <p>A parallel deadline group is backed by the ParallelDeadlineGroup. To use a decorator, use the deadlineWith() method</p><br>
+        <b>Adding an end condition</b>
+        <p>To add a end condition for a command, use the until() method.</p><br>
+        <p>If you want to add a timeout, use the withTimeout() method. The method takes the number of seconds of timeout as a parameter</p><br>
+        <b>Adding end behavior</b>
+        <p>finallyDo() allows you to make the robot execute a lambda after the command ends. A lambda expression is basically a method that has no names, takes no parameters, returns nothing, and is directly declared. For instance, you can have a call of <code>command.finallyDo(() -> System.out.println("Hello, World");)</code> if you want "Hello, World" to be printed after the command ends.</p><br>
+        <p>handleInterrupt() allows you to make the robot execute a lambda only if it's interrupted(e.g. if the interrupted parameter in end() is true)</p><br>
+        <b>Choosing commands</b>
+        <p>A select command is a command that allows you to create a map and allow you to choose based on the current robot state(That's actually a large part of auto-align and why there are a bajillion methods in RobotContainer)</p><br>
+        <p>You use the SelectCommand class: there is no decorator for this one</p><br>
+        <b>Conditional Command</b>
+        <p>A conditional command runs a command only if a condition is true</p><br>
+        <p>There is an unless() decorator that allows you to pass a condition to not run the command</p><br>
+        <b>Proxy Command</b>
+        <p>This is the most non-intituitve type of command compostion we're learning today. The only reason it exists is because the command scheduler is bad and it's a little workaround around the bad command scheduler</p><br>
+        <p>As you remember from Lesson 3(hopefully), each command has some requirement subsystems. The command scheduler uses this to prevent scheduling 2 commands that require the same subsystem</p><br>
+        <p>Command compositions are treated as one command by the command scheduler though, and <em>every single</em> requirement is inherited by the composition</p><br>
+        <p>This causes problems if you need to use a subsystem that's a requirement of a command composition but no longer used.</p><br>
+        <p>The whole point of a proxy command is to ensure that the command composition doesn't inherit all of the requirements of that command. That's about it.</p><br>
+        <p>If you didn't get that explanation, ask someone on the code team and they'll explain it to you better</p><br>
+        <p>Here is a reference of the type of command compositions and an example</p>
+        <table>
+            <th>
+                <td>Composition</td>
+                <td>What is it?</td>
+                <td>Decorator method</td>
+            </th>
+            <tr>
+                <td>RepeatCommand</td>
+                <td>Runs the command repeatedly</td>
+                <td>repeatedly()</td>
+            </tr>
+            <tr>
+                <td>SequentialCommandGroup</td>
+                <td>Runs the command in the group in order</td>
+                <td>beforeStarting() to add a command before the current command and andThen() to add a command after the current command</td>
+            </tr>
+            <tr>
+                <td>ParallelCommandGroup</td>
+                <td>Runs the commands in the group at the same time. Ends the group when all of the commands  in the group end</td>
+                <td>alongWith()</td>
+            </tr>
+            <tr>
+                <td>ParallelRaceGroup</td>
+                <td>Runs the commands in the group at the same time. Ends the group when one of the commands in the group ends</td>
+                <td>raceWith()</td>
+            </tr>
+            <tr>
+                <td>ParallelDeadlineGroup</td>
+                <td>Runs the commands in the group at the same time. Ends the group when the desiginated <em>deadline</em> command ends</td>
+                <td>deadlineWith() in 2024 and deadlineFor() in 2025</td>
+            </tr>
+            <tr>
+                <td>An end condition</td>
+                <td>Adds a condition that ends the command early</td>
+                <td>until()</td>
+            </tr>
+            <tr>
+                <td>A timeout</td>
+                <td>Adds a timeout</td>
+                <td>withTimeout()</td>
+            </tr>
+            <tr>
+                <td>End behavior</td>
+                <td>Adds behavior for the robot to execute to handle after the end of the command</td>
+                <td>finallyDo() for all cases, handleInterrupt() for only an interruption</td>
+            </tr>
+            <tr>
+                <td>SelectCommand</td>
+                <td>Has the robot choose the command based on a map and curret state</td>
+                <td>N/A</td>
+            </tr>
+            <tr>
+                <td>ConditionalCommand</td>
+                <td>Has the robot execute the command based on a condition</td>
+                <td>unless()</td>
+            </tr>
+            <tr>
+                <td>ProxyCommand</td>
+                <td>Allows the command composition to not inherit all of the requirements of the child commands</td>
+                <td>N/A</td>
+            </tr>
+        </table>
+        <p>A good example of a use of command composition is the forAmpAutoFire() method in ThrowCommand, which is shown for your convienence</p><br>
+        <img src = "images\L4\CompositionExample.png">
+
+    </div>
+
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

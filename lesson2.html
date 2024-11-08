@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2 - Intro to GitHub and Visual Studio Code - WPILib Learning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <p class="name">Code Purple</p>
+            <a class="item" href="index.html">
+                Home
+            </a>
+            <a class="item" href="about.html">
+                About
+            </a>
+            <a class="item" href="credits.html">
+                Credits
+            </a>
+            <div class = "dropdown">
+                <a class="item" href="lessons.html">
+                    Lessons
+                </a>
+                <div class="dropdown-content">
+                    <a href="lesson1.html">Lesson 1<br>What is WPI Lib?</a>
+                    <a href="lesson2.html">Lesson 2<br>Intro to GitHub and VSC</a>
+                    <a href="lesson3.html">Lesson 3<br>Commands and Subsystems</a>
+                    <a href="lesson4.html">Lesson 4<br>Robot Container Basics</a>
+                    <a href="lesson5.html">Lesson 5<br>PID Loops Basic</a>
+                    <a href="lesson6.html">Lesson 6<br>Swerve Drive Integration</a>
+                    <a href="lesson7.html">Lesson 7<br>Autonomous Code w/ Choreo</a>
+                    <a href="lesson8.html">Lesson 8<br>Intro to Limelight</a>
+                </div>
+            </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>Introduction to GitHub and Visual Studio Code</h2>
+            <hr>
+
+            <h3>GitHub Basics</h3>
+            <p>Github is a web-based platform used for source control and code collaboration.</p>
+            <p>Software developers use Github to manage their projects, review code, track bugs, etc.</p>
+            <p>Key features of GitHub that we will use include:</p>
+            <ul>
+                <li><strong>Repositories:</strong> Storage spaces where your projects live. Each repository can contain multiple files and folders.</li>
+                <li><strong>Branches:</strong> Parallel versions of a repository. They allow you to work on different features or fixes without affecting the main codebase.</li>
+                <li><strong>Pull Requests:</strong> Proposed changes to a repository. They facilitate code review and discussion before merging changes into the main branch.</li>
+                <li><strong>Issues:</strong> Tools for tracking bugs, enhancements, and other project tasks.</li>
+            </ul>
+            <p>In order to use Github, you will need to make an account at:</p>
+            <a href="https://github.com">Github Website</a>
+            <p>All of our code is stored in the FRC5827 Organization (to be added, ask a code lead):</p>
+            <img src="images\L2\5827_organization.png" alt="FRC5827 Organization">
+            <hr>
+
+            <h3>Git Setup</h3>
+            <p>In order to use Github with Visual Studio code, you will need to install the Git software: </p>
+            <a href="https://git-scm.com/downloads">Git Download Page</a>
+            <p>Simply click on "Download for Windows" and follow the installation instructions</p>
+            <p>Once Git is installed, you will have to configure your username and email which you used for github.</p>
+            <p>To do this, open the Git CMD app on your computer:</p>
+            <img src="images\L2\gitCMD.png" alt="Git CMD">
+            <p>Then type in the two following commands:</p>
+            <img src="images\L2\gitCMDEmail.png" alt="Git CMD Email">
+            <img src="images\L2\gitCMDUsername.png" alt="Git CMD Username">
+            <p>After you are done configuring Git, open Visual Studio Code and we'll get started on setting up a repository.</p>
+            <hr>
+
+            <h3>Using Github with Visual Studio Code</h3>
+            <h4>Part 1 - Repository Basics</h4>
+            <p>Instructions for installing Visual Studio Code and WPILib are in Lesson 1, if you still haven't installed them.</p>
+            <p>For the purposes of this lesson, regular VSC will work, but it is highly recommended to install WPILib anyway for future lessons.</p>
+            <p>To set up the repository we will use for this lesson, sign into Github and click on the new repository button:</p>
+            <img src="images\L2\newRepoButton.png">
+            <p>Once you click on it, you will be taken to this screen:</p>
+            <img src="images\L2\repoCreation.png">
+            <p>After you hit "create repository," you will be taken to this page:</p>
+            <img src="images\L2\repoHomePage.png">
+            <p>In order to access the repository in Visual Studio Code, you will need to clone it.</p>
+            <p>You can do this by clicking on the green "Code" dropdown and copying the link under "HTTPS":</p>
+            <img src="images\L2\cloneLinkCopy.png">
+            <p>Then, open Visual Studio Code and click on the "source control" icon on the left bar, then click on "clone repository":</p>
+            <img src="images\L2\sourceControl.png">
+            <p>Inside this command popup, paste the link you copied from Github and hit enter:</p>
+            <img src="images\L2\cloneCmdPrompt.png">
+            <p>It will then prompt you to select a location for the repository folder - any location not in OneDrive works as long as you can access it easily.(OneDrive causes issues with robot code. For projects not related to robot code, OneDrive is fine)</p>
+            <p>Once it is cloned, you will have an almost empty editor which should look something like this:</p>
+            <img src="images\L2\vscClonedRepo.png">
+            <p>Once you clone a Github repository, you get your own workspace of all the files in the repository.</p>
+            <p>Whatever changes you make will not automatically be applied to the actual repository in Github.</p>
+            <p>Instead, you will need to "commit" your changes for them to be fully saved in the repo.</p>
+            <p>To test this, lets make a simple txt file and push it to Github.</p>
+            <p>In the explorer tab on the left, click on the first icon to make a new file:</p>
+            <img src="images\L2\vscExplorer.png">
+            <p>You can name the file whatever you want, as long as you have the ".txt" at the end to ensure its a text file:</p>
+            <img src="images\L2\fileCreationExample.png">
+            <p>The file will open, and you can type whatever you want inside of it.</p>
+            <p>In order to commit this file to Github, navigate to the source control tab on the left again:</p>
+            <img src="images\L2\sourceControlCommit.png">
+            <p>Inside the text box is where you would include your "Commit message".</p>
+            <p>This is a short summary of what is inside your commit, and should be no longer than 2 sentences:</p>
+            <img src="images\L2\commitMsgExample.png">
+            <p>After your commit message is finished, hit the commit button.</p>
+            <p>After it stages (which means it is ready to be pushed to Github), click the button again to fully push it.</p>
+            <p>Once its fully commited, go to the repository page and check if the commit went through:</p>
+            <img src="images\L2\commitedFileRepo.png">
+            <p>That is how you commit things to a repository. You can commit almost anything as long as it is valid (for example, images, folders, etc.)</p>
+
+            <h4>Part 2 - Branches</h4>
+            <p>Sometimes, when you have multiple people working on one repository, there can be <b>Merge Conflicts</b>.</p>
+            <p>These occur when two different users make changes to the same line and commit to the repository, and Github is confused on which version to keep.</p>
+            <p>To avoid these, and be able to fix them easily if they do occur, we use branches.</p>
+            <p>Consider the repository as a big blue colored ball of clay - at first, the whole repository is together in one ball (the main branch).</p>
+            <p>Once a user makes a new branch, its like taking out a smaller piece of clay out from the bigger clay ball.</p>
+            <p>If they make a change to the smaller piece of clay, like dyeing it red, it will not effect the bigger ball of clay.</p>
+            <p>However, once they put the small ball back into the big ball (merging branches), the ball will have both red and blue in it.</p>
+            <p>In order to make a new branch, navigate to the repo home page and click on the Branch button:</p>
+            <img src="images\L2\branchButton.png">
+            <p>Once you click it, you will be taken to a screen where you can see all the current branches in the repository. Click on new branch for now:</p>
+            <img src="images\L2\branchesGithub.png">
+            <p>After you click new branch, you will be taken to this screen and there are a few things you need to know:</p>
+            <img src="images\L2\newBranchCreationScreen.png">
+            <p>Your branch name should either be your name, or whatever you are planning to work on in that branch.</p>
+            <p>The source is whatever branch you want you want to create your branch from.</p>
+            <p>For this example, the only branch we have right now is the main branch. If you create it from the main branch, your branch will be an exact copy of whatever is commited to the main branch right now.</p>
+            <p>Now, hit the green create branch button. In order to access this branch in Visual Studio Code, navigate to the Source Control tab on the side and click on the three dots:</p>
+            <img src="images\L2\sourceControlOptions.png">
+            <p>In order to get the new branch onto your VSC, you have to click the "Fetch" option.</p>
+            <p>This is a shortcut to run the "git fetch" command, which checks for updates across the whole repository without actually pulling them to your computer.</p>
+            <p>After git fetch is done running, click on the "Pull" option to pull the new branch to your computer.</p>
+            <p>Once it is done pulling, navigate to the bottom left hand corner of your Visual Studio Code and click on the "main" button with a source control icon next to it:</p>
+            <img src="images\L2\branchSelectionButton.png">
+            <p>It will open this menu, where you should see the new branch that you've created:</p>
+            <img src="images\L2\branchSelectionScreen.png">
+            <p>Click on the branch you just made and it will transfer the workspace to be in that branch.</p>
+            <p>Now, add a new file and commit it to this branch.</p>
+            <p>This is done in the same process as we outlined previously, scroll up if you need a refresher.</p>
+            <p>Once it has been committed, go back to the repository page and click on branches and click on the branch you made.</p>
+            <p>You will now see that the new file you just made exists in the branch but not in main:</p>
+            <img src="images\L2\fileInBranch.png">
+            <h4>Part 3 - Pull Requests and Merging</h4>
+            <p>Eventually, your code will be merged into the main branch for the final product.</p>
+            <p>Howver, merge conflicts can occur during the merge of two branches.</p>
+            <p>These are when someone makes changes to the same line in a different branch and tries to merge them into your branch.</p>
+            <p>To avoid these, we will show you how to create a pull request and make sure someone reviews your changes first.</p>
+            <p>In order to create a pull request, navigate to the repository page and click on Pull Requests:</p>
+            <img src="images\L2\pullRequestButton.png">
+            <p>After you click on it, you will be taken to this screen where you can see all the active pull requests in the repository. For now, click "New pull request":</p>
+            <img src="images\L2\createPullRequestButton.png">
+            <p>Next, select the branches you want to merge. In this case, we will merge main and ExampleBranch:</p>
+            <img src="images\L2\selectBranchForPR.png">
+            <p>Once you have selected the branches, click on "Create pull request", and you will see this screen:</p>
+            <img src="images\L2\fillOutPullReqest.png">
+            <p>The most important parts are the title, description, and reviewers.</p>
+            <p>The title is what is happening in the pull request, and the description is a longer more detailed description of what files and lines are being changed.</p>
+            <p>The reviewers, on the right side of the tab, are the people who you want to review your changes. This makes sure that the changes are working and will not cause any merge conflicts.</p>
+            <p>To select reviewers, click on the gear icon next to it.</p>
+            <p>After you are done filling out the pull request, click on "Create pull request" for it to be created.</p>
+            <p>You won't need to know how to approve pull requests as that is what the more advanced programmers will do.</p>
+            <p>But, after the pull request is submited, an advanced programmer will review it, then merge the two branches.</p>
+            <p>After this is done, you should be able to see your files in the main branch!</p>
+            <img src="images\L2\fileInMainBranch.png">
+            
+            <h4>Part 3 - Issues</h4>
+            <p>Issues are the last thing we need to cover, but they are pretty simple.</p>
+            <p>An issue is, for the lack of better words, and issue in the code that needs to be fixed.</p>
+            <p>In order to make a new issue, navigate to the repository home page and click on Issues:</p>
+            <img src="images\L2\issuesButton.png">
+            <p>Once you click on the issues button, you will be taken to a screen similar to the pull request screen where you should click "New issue":</p>
+            <img src="images\L2\issueScreen.png">
+            <p>The issues screen is very similar to the pull request screen, so we won't go to in depth right now.</p>
+            <p>The most important part is the "assignees" section on the right, which is the people you want to assign to fix the issue.</p>
+            <p>Generally, if you discovered the issue, but another person was the person who coded it, you should assign the issue to that person.</p>
+            <p>To assign people to the issue, just click on the gear and it will give you a dropdown of all the people in the repository.</p>
+            <p>When you are done, click on "Create issue" - you can view all active issues by going back to the issues tab.</p>
+            <p>Inside an issue, you have the option to close it - DO NOT do this until the issue is solved.</p>
+            <hr>
+            <h3>Lesson Conclusion</h3>
+            <p>All the Github things outlined in this lesson are what you will need to collaborate with other robotics members.</p>
+            <p>Feel free to come back to this page any time you are confused, or ask for help.</p>
+            <p>If you run into any issues, try and solve them yourself. This is the best way to learn how to use Github.</p>
+            <p>If the issue still pertains, let us know and we will help you.</p>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 FRC Team 5827
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
