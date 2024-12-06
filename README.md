@@ -17,6 +17,7 @@
 * Brendan Tea
 * Kaushal Rao
 * Jack Strathy
+* Arron Randhawa
 
 
 ## P.S.
