@@ -1,7 +1,7 @@
 <p align="center">
  <img src="https://avatars.githubusercontent.com/u/73409308?s=200&v=4" alt="The Documentation Compendium"></a>
 </p>
-<h3 align="center"><a href="https://datboi212github.github.io/WPILibLearning">WPILibLearning 5827</a></h3>
+<h3 align="center"><a href="https://frc5827.github.io/wpiliblearning/">WPILibLearning 5827</a></h3>
 
 ***
 <p align="center">This website should give you all you need to succeed on this team. Composing of 8 main lessons, you will learn everything from the basics to complex. Good luck and have fun.</p>
